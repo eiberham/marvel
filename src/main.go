@@ -1,60 +1,30 @@
 package main
 
 import (
-	"crypto/md5"
-	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
-	"github.com/joho/godotenv"
+	"github.com/user/marvel/src/config"
+	"github.com/user/marvel/src/model"
+	"github.com/user/marvel/src/util"
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
-	"strconv"
-	"time"
 )
-
-
-type Response struct {
-	Code      		int             	`json:"code"`
-	Status    		string          	`json:"status"`
-	Copyright 		string 				`json:"copyright"`
-	AttributionText string 				`json:"attributionText"`
-	AttributionHTML string 				`json:"attributionHTML"`
-	Data 			json.RawMessage 	`json:"data"`
-	Etag 			string  			`json:"etag"`
-}
-
-func init() {
-	if err := godotenv.Load(); err != nil {
-		log.Print("No .env file found")
-	}
-}
 
 func main() {
 	var router = mux.NewRouter()
 	router.HandleFunc("/characters", getCharacters).Methods("GET")
+	router.HandleFunc("/characters/{id}", getCharacterById).Methods("GET")
 
 	fmt.Println("Running server ...")
 	log.Fatal(http.ListenAndServe(":3000", router))
 }
 
 func getCharacters(w http.ResponseWriter, r *http.Request) {
-	now := time.Now()
-	timestamp := strconv.FormatInt(now.UTC().UnixNano(), 10)
+	config := config.New()
 
-	API_URL, _     := os.LookupEnv("MARVEL_API_URL")
-	API_PVT_KEY, _ := os.LookupEnv("MARVEL_API_PVT_KEY")
-	API_PUB_KEY, _ := os.LookupEnv("MARVEL_API_PUB_KEY")
-
-	str := string(timestamp) + API_PVT_KEY + API_PUB_KEY
-
-	hasher := md5.New()
-	hasher.Write([]byte(str))
-	hash := hex.EncodeToString(hasher.Sum(nil))
-
-	url := API_URL + "characters?apikey="+ API_PUB_KEY + "&hash=" + hash + "&ts=" + timestamp
+	url := config.Marvel.Host + "characters" + util.GetAuthParams()
 
 	resp, err := http.Get(url)
 
@@ -69,10 +39,19 @@ func getCharacters(w http.ResponseWriter, r *http.Request) {
 		log.Fatalln(err)
 	}
 
-	var response Response
+	var response model.Response
 	json.Unmarshal(body, &response)
 
 	w.Header().Add("Content-Type", "application/json")
 
 	json.NewEncoder(w).Encode(response)
+}
+
+func getCharacterById(w http.ResponseWriter, r *http.Request){
+	//config := config.New()
+
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	json.NewEncoder(w).Encode(map[string]string{"id": id})
 }
