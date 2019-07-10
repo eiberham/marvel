@@ -7,6 +7,7 @@ import (
 	"github.com/user/marvel/src/config"
 	"github.com/user/marvel/src/model"
 	"github.com/user/marvel/src/util"
+	"github.com/user/marvel/src/apis"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -24,9 +25,11 @@ func main() {
 func getCharacters(w http.ResponseWriter, r *http.Request) {
 	config := config.New()
 
+	client := apis.New()
+
 	url := config.Marvel.Host + "characters" + util.GetAuthParams()
 
-	resp, err := http.Get(url)
+	resp, err := client.HttpClient.Get(url)
 
 	if err != nil {
 		log.Fatalln(err)
@@ -50,12 +53,14 @@ func getCharacters(w http.ResponseWriter, r *http.Request) {
 func getCharacterById(w http.ResponseWriter, r *http.Request){
 	config := config.New()
 
+	client := apis.New()
+
 	vars := mux.Vars(r)
 	id := vars["id"]
 
 	url := config.Marvel.Host + "characters/" + id + util.GetAuthParams()
 
-	resp, err := http.Get(url)
+	resp, err := client.HttpClient.Get(url)
 
 	if err != nil {
 		log.Fatalln(err)
