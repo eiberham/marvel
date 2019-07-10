@@ -48,10 +48,28 @@ func getCharacters(w http.ResponseWriter, r *http.Request) {
 }
 
 func getCharacterById(w http.ResponseWriter, r *http.Request){
-	//config := config.New()
+	config := config.New()
 
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	json.NewEncoder(w).Encode(map[string]string{"id": id})
+	url := config.Marvel.Host + "characters/" + id + util.GetAuthParams()
+
+	resp, err := http.Get(url)
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	var response model.Response
+	json.Unmarshal(body, &response)
+
+	json.NewEncoder(w).Encode(response)
 }
