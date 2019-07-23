@@ -34,6 +34,7 @@ func main() {
 	router := r.PathPrefix("/api/v1").Subrouter()
 	router.HandleFunc("/characters", routes.GetCharacters).Methods("GET")
 	router.HandleFunc("/characters/{id}", routes.GetCharacterById).Methods("GET")
+	router.HandleFunc("/comics", routes.GetComics).Methods("GET")
 
 	fmt.Println("Running server ...")
 	log.Fatal(http.ListenAndServe(":3000", r))
