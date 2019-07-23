@@ -17,6 +17,13 @@ definitions:
       status:
         type: string
     type: object
+  model.ResponseError:
+    properties:
+      code:
+        type: integer
+      status:
+        type: string
+    type: object
 host: localhost:3000
 info:
   contact:
@@ -47,15 +54,18 @@ paths:
         "400":
           description: Bad Request
           schema:
-            type: string
+            $ref: '#/definitions/model.ResponseError'
+            type: object
         "404":
           description: Not Found
           schema:
-            type: string
+            $ref: '#/definitions/model.ResponseError'
+            type: object
         "500":
           description: Internal Server Error
           schema:
-            type: string
+            $ref: '#/definitions/model.ResponseError'
+            type: object
       summary: List characters
       tags:
       - characters
@@ -81,15 +91,18 @@ paths:
         "400":
           description: Bad Request
           schema:
-            type: string
+            $ref: '#/definitions/model.ResponseError'
+            type: object
         "404":
           description: Not Found
           schema:
-            type: string
+            $ref: '#/definitions/model.ResponseError'
+            type: object
         "500":
           description: Internal Server Error
           schema:
-            type: string
+            $ref: '#/definitions/model.ResponseError'
+            type: object
       summary: Show a character
       tags:
       - characters

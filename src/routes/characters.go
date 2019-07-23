@@ -19,9 +19,9 @@ import (
 // @Accept  json
 // @Produce  json
 // @Success 200 {object} model.Response
-// @Failure 400 {string} string
-// @Failure 404 {string} string
-// @Failure 500 {string} string
+// @Failure 400 {object} model.ResponseError
+// @Failure 404 {object} model.ResponseError
+// @Failure 500 {object} model.ResponseError
 // @Router /character [get]
 func GetCharacters(w http.ResponseWriter, r *http.Request) {
 
@@ -44,13 +44,16 @@ func GetCharacters(w http.ResponseWriter, r *http.Request) {
 		log.Fatalln(err)
 	}
 
-	var response model.Response
-	json.Unmarshal(body, &response)
-
-
-	w.Header().Add("Content-Type", "application/json")
-
-	json.NewEncoder(w).Encode(response)
+	if resp.StatusCode != 200 {
+		var response model.ResponseError
+		json.Unmarshal(body, &response)
+		json.NewEncoder(w).Encode(response)
+	} else {
+		var response model.Response
+		json.Unmarshal(body, &response)
+		w.Header().Add("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(response)
+	}
 }
 
 
@@ -62,9 +65,9 @@ func GetCharacters(w http.ResponseWriter, r *http.Request) {
 // @Produce  json
 // @Param id path int true "Character ID"
 // @Success 200 {object} model.Response
-// @Failure 400 {string} string
-// @Failure 404 {string} string
-// @Failure 500 {string} string
+// @Failure 400 {object} model.ResponseError
+// @Failure 404 {object} model.ResponseError
+// @Failure 500 {object} model.ResponseError
 // @Router /characters/{id} [get]
 func GetCharacterById(w http.ResponseWriter, r *http.Request){
 	conf := config.New()
@@ -84,13 +87,16 @@ func GetCharacterById(w http.ResponseWriter, r *http.Request){
 
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatalln(err)
+	body, _ := ioutil.ReadAll(resp.Body)
+
+	if resp.StatusCode != 200 {
+		var response model.ResponseError
+		json.Unmarshal(body, &response)
+		json.NewEncoder(w).Encode(response)
+	} else {
+		var response model.Response
+		json.Unmarshal(body, &response)
+		json.NewEncoder(w).Encode(response)
 	}
 
-	var response model.Response
-	json.Unmarshal(body, &response)
-
-	json.NewEncoder(w).Encode(response)
 }
