@@ -1,24 +1,37 @@
 import React, {useState, useEffect} from 'react';
 
+import CharacterCard from './CharacterCard';
+
 import marvel from "../apis/marvel";
 
 const CharactersList = () => {
-    const [characters, setCharacters] = useState({characters: []});
+    const [characters, setCharacters] = useState([]);
 
     useEffect( () => {
         const fetchCharacters = async () => {
-            const {data:{data}} = await marvel.get('/characters');
-            setCharacters(data);
+            try {
+                const {data:{data:{results}}} = await marvel.get('/characters');
+                console.log("resultados: ", results);
+                setCharacters(results);
+            }catch(error) {
+                console.error(error);
+            }
         }
 
         fetchCharacters()
 
-    }, [])
+    }, []);
 
     return (
-        <div>
-            CharactersList Component !
-        </div>
+        <section className="characters">
+            {characters && characters.map(({name, description, thumbnail:{path, extension}}) => (
+                <CharacterCard
+                    thumbnail={`${path}.${extension}`}
+                    title={name}
+                    description={description}
+                />
+            ))}
+        </section>
     );
 };
 

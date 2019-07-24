@@ -27,6 +27,14 @@ import (
 // @Router /character?publicKey={publicKey}&privateKey={privateKey} [get]
 func GetCharacters(w http.ResponseWriter, r *http.Request) {
 
+	(w).Header().Set("Access-Control-Allow-Origin", "*")
+	(w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	(w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+
+	if (*r).Method == "OPTIONS" {
+		return
+	}
+
 	conf := config.New()
 
 	client := apis.New()
@@ -74,6 +82,15 @@ func GetCharacters(w http.ResponseWriter, r *http.Request) {
 // @Failure 500 {object} model.ResponseError
 // @Router /characters/{id}?publicKey={publicKey}&privateKey={privateKey} [get]
 func GetCharacterById(w http.ResponseWriter, r *http.Request){
+
+	(w).Header().Set("Access-Control-Allow-Origin", "*")
+	(w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	(w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+
+	if (*r).Method == "OPTIONS" {
+		return
+	}
+
 	conf := config.New()
 
 	client := apis.New()

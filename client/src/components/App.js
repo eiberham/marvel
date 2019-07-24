@@ -10,7 +10,6 @@ const App = () => {
             <React.Fragment>
                 <CssBaseline />
                 <Container maxWidth="md">
-                    <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh' }} />
                     <CharactersList />
                 </Container>
             </React.Fragment>
