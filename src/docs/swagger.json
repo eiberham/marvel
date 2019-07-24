@@ -31,6 +31,22 @@
                     "characters"
                 ],
                 "summary": "List characters",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Your Public Key",
+                        "name": "publicKey",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Your Private Key",
+                        "name": "privateKey",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -75,12 +91,87 @@
                 "tags": [
                     "characters"
                 ],
-                "summary": "Show a character",
+                "summary": "Shows a character",
                 "parameters": [
                     {
                         "type": "integer",
                         "description": "Character ID",
                         "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Your Public Key",
+                        "name": "publicKey",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Your Private Key",
+                        "name": "privateKey",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/model.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/model.ResponseError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/model.ResponseError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/model.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/comic": {
+            "get": {
+                "description": "get comics",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "comics"
+                ],
+                "summary": "List comics",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Your Public Key",
+                        "name": "publicKey",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Your Private Key",
+                        "name": "privateKey",
                         "in": "path",
                         "required": true
                     }

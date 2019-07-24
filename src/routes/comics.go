@@ -17,11 +17,13 @@ import (
 // @Tags comics
 // @Accept  json
 // @Produce  json
+// @Param publicKey path string true "Your Public Key"
+// @Param privateKey path string true "Your Private Key"
 // @Success 200 {object} model.Response
 // @Failure 400 {object} model.ResponseError
 // @Failure 404 {object} model.ResponseError
 // @Failure 500 {object} model.ResponseError
-// @Router /comic [get]
+// @Router /comic?publicKey={publicKey}&privateKey={privateKey} [get]
 func GetComics(w http.ResponseWriter, r *http.Request) {
 	conf := config.New()
 

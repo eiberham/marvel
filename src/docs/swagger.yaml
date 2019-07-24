@@ -43,6 +43,17 @@ paths:
       consumes:
       - application/json
       description: get characters
+      parameters:
+      - description: Your Public Key
+        in: path
+        name: publicKey
+        required: true
+        type: string
+      - description: Your Private Key
+        in: path
+        name: privateKey
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -80,6 +91,16 @@ paths:
         name: id
         required: true
         type: integer
+      - description: Your Public Key
+        in: path
+        name: publicKey
+        required: true
+        type: string
+      - description: Your Private Key
+        in: path
+        name: privateKey
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -103,7 +124,49 @@ paths:
           schema:
             $ref: '#/definitions/model.ResponseError'
             type: object
-      summary: Show a character
+      summary: Shows a character
       tags:
       - characters
+  /comic:
+    get:
+      consumes:
+      - application/json
+      description: get comics
+      parameters:
+      - description: Your Public Key
+        in: path
+        name: publicKey
+        required: true
+        type: string
+      - description: Your Private Key
+        in: path
+        name: privateKey
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ResponseError'
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ResponseError'
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ResponseError'
+            type: object
+      summary: List comics
+      tags:
+      - comics
 swagger: "2.0"

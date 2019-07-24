@@ -18,11 +18,13 @@ import (
 // @Tags characters
 // @Accept  json
 // @Produce  json
+// @Param publicKey path string true "Your Public Key"
+// @Param privateKey path string true "Your Private Key"
 // @Success 200 {object} model.Response
 // @Failure 400 {object} model.ResponseError
 // @Failure 404 {object} model.ResponseError
 // @Failure 500 {object} model.ResponseError
-// @Router /character [get]
+// @Router /character?publicKey={publicKey}&privateKey={privateKey} [get]
 func GetCharacters(w http.ResponseWriter, r *http.Request) {
 
 	conf := config.New()
@@ -58,17 +60,19 @@ func GetCharacters(w http.ResponseWriter, r *http.Request) {
 
 
 // GetCharacterById godoc
-// @Summary Show a character
+// @Summary Shows a character
 // @Description get string by ID
 // @Tags characters
 // @Accept  json
 // @Produce  json
 // @Param id path int true "Character ID"
+// @Param publicKey path string true "Your Public Key"
+// @Param privateKey path string true "Your Private Key"
 // @Success 200 {object} model.Response
 // @Failure 400 {object} model.ResponseError
 // @Failure 404 {object} model.ResponseError
 // @Failure 500 {object} model.ResponseError
-// @Router /characters/{id} [get]
+// @Router /characters/{id}?publicKey={publicKey}&privateKey={privateKey} [get]
 func GetCharacterById(w http.ResponseWriter, r *http.Request){
 	conf := config.New()
 
