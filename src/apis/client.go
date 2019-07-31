@@ -1,7 +1,7 @@
 package apis
 
 import (
-	"github.com/user/marvel/src/config"
+	"github.com/wwleak/marvel/src/config"
 	"net/http"
 	"time"
 )

@@ -2,10 +2,10 @@ package routes
 
 import (
 	"encoding/json"
-	"github.com/user/marvel/src/apis"
-	"github.com/user/marvel/src/config"
-	"github.com/user/marvel/src/model"
-	"github.com/user/marvel/src/util"
+	"github.com/wwleak/marvel/src/apis"
+	"github.com/wwleak/marvel/src/config"
+	"github.com/wwleak/marvel/src/model"
+	"github.com/wwleak/marvel/src/util"
 	"io/ioutil"
 	"log"
 	"net/http"
