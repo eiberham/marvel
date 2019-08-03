@@ -5,10 +5,9 @@ import styled from "@emotion/styled";
 
 const Section = styled.section`
     display: grid;
-    grid-template-rows: 200px;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 30px;
-    overflow: hidden;
+    grid-auto-rows: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 0 10px;
 `;
 
 const CharactersList = () => {
@@ -18,7 +17,7 @@ const CharactersList = () => {
         const fetchCharacters = async () => {
             try {
                 const {data:{data:{results}}} = await marvel.get('/characters');
-                console.log("resultados: ", results);
+                //console.log("resultados: ", results);
                 setCharacters(results);
             }catch(error) {
                 console.error(error);
