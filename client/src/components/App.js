@@ -1,18 +1,12 @@
 import React from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import CharactersList from './CharactersList'
+import CharactersList from './CharactersList';
+import Footer from './Footer';
 
 const App = () => {
     return (
         <div>
-            <React.Fragment>
-                <CssBaseline />
-                <Container maxWidth="md">
-                    <CharactersList />
-                </Container>
-            </React.Fragment>
+            <CharactersList />
+            <Footer />
         </div>
     );
 };
