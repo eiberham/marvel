@@ -1,20 +1,22 @@
 import React from 'react';
-
 import styled from '@emotion/styled';
 
-const Section = styled.section`
-  color: turquoise;
+const Div = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 const CharacterCard = (props) => {
     return (
-        <div>
+        <Div>
             <figure>
+                <img src={props.thumbnail} alt={props.name} width={200}/>
                 <figcaption>
                     {props.name}
                 </figcaption>
             </figure>
-        </div>
+        </Div>
     )
 };
 
