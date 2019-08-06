@@ -56,12 +56,25 @@ func GetCharacters(w http.ResponseWriter, r *http.Request) {
 
 	if resp.StatusCode != 200 {
 		var response model.ResponseError
-		json.Unmarshal(body, &response)
+		err := json.Unmarshal(body, &response)
+
+		if err != nil{
+			log.Fatalln(err)
+		}
+
+		w.Header().Add("Content-Type", "application/json")
+
 		json.NewEncoder(w).Encode(response)
 	} else {
 		var response model.Response
-		json.Unmarshal(body, &response)
+		err := json.Unmarshal(body, &response)
+
+		if err != nil{
+			log.Fatalln(err)
+		}
+
 		w.Header().Add("Content-Type", "application/json")
+
 		json.NewEncoder(w).Encode(response)
 	}
 }
@@ -108,15 +121,32 @@ func GetCharacterById(w http.ResponseWriter, r *http.Request){
 
 	defer resp.Body.Close()
 
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatalln(err)
+	}
 
 	if resp.StatusCode != 200 {
 		var response model.ResponseError
-		json.Unmarshal(body, &response)
+		err := json.Unmarshal(body, &response)
+
+		if err != nil{
+			log.Fatalln(err)
+		}
+
+		w.Header().Add("Content-Type", "application/json")
+
 		json.NewEncoder(w).Encode(response)
 	} else {
 		var response model.Response
-		json.Unmarshal(body, &response)
+		err := json.Unmarshal(body, &response)
+
+		if err != nil{
+			log.Fatalln(err)
+		}
+
+		w.Header().Add("Content-Type", "application/json")
+
 		json.NewEncoder(w).Encode(response)
 	}
 

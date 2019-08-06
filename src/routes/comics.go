@@ -55,12 +55,25 @@ func GetComics(w http.ResponseWriter, r *http.Request) {
 
 	if resp.StatusCode != 200 {
 		var response model.ResponseError
-		json.Unmarshal(body, &response)
+		err := json.Unmarshal(body, &response)
+
+		if err != nil{
+			log.Fatalln(err)
+		}
+
+		w.Header().Add("Content-Type", "application/json")
+
 		json.NewEncoder(w).Encode(response)
 	} else {
 		var response model.Response
-		json.Unmarshal(body, &response)
+		err := json.Unmarshal(body, &response)
+
+		if err != nil{
+			log.Fatalln(err)
+		}
+
 		w.Header().Add("Content-Type", "application/json")
+
 		json.NewEncoder(w).Encode(response)
 	}
 
