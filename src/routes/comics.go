@@ -44,6 +44,9 @@ func GetComics(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		log.Fatalln(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(" Internal Server Error"))
+		return
 	}
 
 	defer resp.Body.Close()
@@ -51,6 +54,9 @@ func GetComics(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatalln(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(" Internal Server Error"))
+		return
 	}
 
 	if resp.StatusCode != 200 {
@@ -59,6 +65,9 @@ func GetComics(w http.ResponseWriter, r *http.Request) {
 
 		if err != nil{
 			log.Fatalln(err)
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte(" Internal Server Error"))
+			return
 		}
 
 		w.Header().Add("Content-Type", "application/json")
@@ -70,6 +79,9 @@ func GetComics(w http.ResponseWriter, r *http.Request) {
 
 		if err != nil{
 			log.Fatalln(err)
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte(" Internal Server Error"))
+			return
 		}
 
 		w.Header().Add("Content-Type", "application/json")
