@@ -7,22 +7,21 @@ const Div = styled.div`
     flex-direction: column;
     align-items: center;
     position: relative;
-    
+    margin: 0.5rem;
     figure {
         img {
-        z-index: 1;
+        height: 90%;
         &:hover {
             cursor: pointer;
-            transform: scale(1.5);
             filter: drop-shadow(2px 4px 6px black);
-            z-index: 10;
+            outline: 0.5rem solid #000;
         }
     }
     
     & > figcaption {
         position: absolute;
         transform: translate(-50%, -50%);
-        top: 90%;
+        top: 69%;
         left: 50%;
         font-family: 'Marvel', sans-serif;
         font-weight: 700;
